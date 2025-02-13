@@ -37,11 +37,13 @@ export function NavigationBar() {
   const pathname = usePathname()
 
   return (
-    <nav className="w-64 border-r bg-card px-3 py-4 hidden md:block">
-      <div className="mb-8 px-4">
-        <h1 className="font-bold text-xl">Daily Quest</h1>
+    <nav className="w-72 border-r border-border/40 bg-card h-screen flex flex-col">
+      <div className="p-6 border-b border-border/40">
+        <h1 className="font-bold text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
+          Daily Quest
+        </h1>
       </div>
-      <div className="space-y-1">
+      <div className="flex-1 flex flex-col gap-2 p-4">
         {navItems.map((item) => {
           const isActive = pathname === item.path
           return (
@@ -49,11 +51,11 @@ export function NavigationBar() {
               key={item.path}
               href={item.path}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:hover:text-gray-50 hover:bg-gray-100 dark:hover:bg-gray-800",
-                isActive && "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-50"
+                "flex items-center gap-3 rounded-lg px-4 py-3 text-muted-foreground transition-all hover:text-primary hover:bg-accent/40",
+                isActive && "bg-accent text-primary font-medium"
               )}
             >
-              <item.icon className="h-4 w-4" />
+              <item.icon className="h-5 w-5" />
               <span>{item.title}</span>
             </Link>
           )

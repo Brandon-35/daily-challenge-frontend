@@ -1,5 +1,4 @@
-// app/layout.tsx
-import { NavigationBar } from "@/components/navigation/NavigationBar"
+import { NavigationSidebar } from "@/components/navigation/NavigationSidebar"
 import { GameBoard } from "@/components/gamification/GameBoard"
 import "./globals.css"
 
@@ -11,17 +10,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="min-h-screen bg-background flex">
-          {/* Navigation Sidebar */}
-          <NavigationBar />
+        <div className="flex min-h-screen bg-zinc-50 dark:bg-zinc-900">
+          {/* Sidebar Navigation */}
+          <NavigationSidebar />
           
-          {/* Main Content */}
-          <main className="flex-1 p-8 pt-2">
-            {/* Game Status Board - Always visible */}
-            <GameBoard />
+          {/* Main Content Area */}
+          <main className="flex-1 flex flex-col">
+            {/* Game Board as a Top Panel */}
+            <div className="w-full">
+              <GameBoard />
+            </div>
             
-            {/* Page Content */}
-            <div className="mt-6">
+            {/* Main Content */}
+            <div className="flex-1 p-8">
               {children}
             </div>
           </main>
