@@ -6,35 +6,78 @@ $black: #000000;
 $dark-blue: #2c3e50;
 $dark-navy: #34495e;
 $text-muted: #7f8c8d;
+$text-primary: #333333;
+$text-secondary: #666666;
 
 // Brand Colors
 $primary-blue: #3498db;
+$primary-color: #3498db; // Alias for consistency
 $success-green: #27ae60;
+$success-color: #27ae60; // Alias for consistency
+$warning-color: #f39c12;
+$danger-color: #e74c3c;
+$info-color: #2980b9;
 
 // Background Colors
 $light-gray: #f9f9f9;
 $hover-light: #f1f3f4;
+$bg-light: #f4f4f4;
+$bg-white: #ffffff;
+$bg-dark: #2c3e50;
 
 // Border Colors
 $border-light: #ecf0f1;
+$border-medium: #bdc3c7;
+$border-dark: #95a5a6;
 
 // Typography
 $base-font-family: 'Arial', sans-serif;
 $base-font-size: 16px;
 $base-line-height: 1.6;
+$font-size-sm: 14px;
+$font-size-lg: 18px;
 
 // Spacing
 $base-spacing: 15px;
 $large-spacing: 30px;
+$spacing-xs: 5px;
+$spacing-sm: 10px;
+$spacing-md: 15px;
+$spacing-lg: 20px;
+$spacing-xl: 30px;
 
 // Breakpoints
 $mobile-width: 600px;
 $tablet-width: 900px;
 $desktop-width: 1200px;
+$breakpoint-xs: 576px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 992px;
+$breakpoint-lg: 1200px;
+$breakpoint-xl: 1400px;
 
 // Transitions
-$base-transition: 0.3s ease;
+$transition-base: 0.3s ease; 
+$transition-fast: 0.2s ease;
+$transition-slow: 0.5s ease;
 
 // Shadows
 $base-shadow: 0 2px 5px rgba(0,0,0,0.1);
 $hover-shadow: 0 4px 10px rgba(0,0,0,0.15);
+$shadow-light: 0 2px 4px rgba(0,0,0,0.1);
+$shadow-medium: 0 4px 6px rgba(0,0,0,0.15);
+$shadow-dark: 0 6px 8px rgba(0,0,0,0.2);
+
+// Border Radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+// Z-index
+$z-index-base: 1;
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal: 1040;
+$z-index-popover: 1050;
+$z-index-tooltip: 1060;
