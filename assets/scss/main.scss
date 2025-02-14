@@ -1,0 +1,18 @@
+// Base imports
+@import 'base/variables';
+@import 'base/reset';
+@import 'base/typography';
+
+// Layout imports
+@import 'layout/grid';
+@import 'layout/header';
+@import 'layout/footer';
+
+// Component imports
+@import 'components/dashboard';
+@import 'components/challenges';
+@import 'components/buttons';
+
+// Theme imports
+@import 'themes/light';
+@import 'themes/dark';

@@ -1,0 +1,56 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+    line-height: $base-line-height;
+    background-color: $light-gray;
+    color: $dark-navy;
+}
+
+a {
+    text-decoration: none;
+    color: $primary-blue;
+    transition: color $base-transition;
+
+    &:hover {
+        color: darken($primary-blue, 10%);
+    }
+}
+
+ul, ol {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+input, button {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
