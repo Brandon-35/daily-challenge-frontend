@@ -16,7 +16,7 @@ body {
 a {
     text-decoration: none;
     color: $primary-blue;
-    transition: color $base-transition;
+    transition: color $transition-base;
 
     &:hover {
         color: darken($primary-blue, 10%);

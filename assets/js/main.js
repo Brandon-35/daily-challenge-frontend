@@ -28,36 +28,18 @@ class challenge_tracker_app extends Base {
             }
         });
 
-        // Initialize router with application routes
+        // Initialize router
         this.router = new Router({
             mode: 'history',
-            routes: [
-                { 
-                    path: '/', 
-                    handler: this.render_dashboard.bind(this),
-                    middleware: [this.auth_middleware]
-                },
-                { 
-                    path: '/challenges', 
-                    handler: this.render_challenges.bind(this),
-                    middleware: [this.auth_middleware]
-                },
-                { 
-                    path: '/logs', 
-                    handler: this.render_logs.bind(this),
-                    middleware: [this.auth_middleware]
-                },
-                { 
-                    path: '/profile', 
-                    handler: this.render_profile.bind(this),
-                    middleware: [this.auth_middleware]
-                },
-                { 
-                    path: '/login', 
-                    handler: this.render_login.bind(this)
-                }
-            ]
+            root: '/'
         });
+
+        // Add routes
+        this.router.add_route('/', this.render_dashboard.bind(this));
+        this.router.add_route('/login', this.render_login.bind(this));
+        this.router.add_route('/challenges', this.render_challenges.bind(this));
+        this.router.add_route('/logs', this.render_logs.bind(this));
+        this.router.add_route('/profile', this.render_profile.bind(this));
 
         // Register global application hooks
         this.register_global_hooks();
@@ -181,10 +163,11 @@ class challenge_tracker_app extends Base {
         await profile.mount(document.getElementById('app'));
     }
 
-    async render_login(router) {
-        const login_component = await import('./components/login_component.js');
-        const login = new login_component({
-            store: this.store
+    async render_login() {
+        const { default: LoginComponent } = await import('./components/login_component.js');
+        const login = new LoginComponent({
+            store: this.store,
+            router: this.router
         });
         await login.mount(document.getElementById('app'));
     }
