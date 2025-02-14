@@ -98,6 +98,7 @@ class Router extends Base {
         this.query = this._extract_query();
 
         try {
+            this._update_active_nav(path);
             // Run global middlewares
             for (const middleware of this.middlewares) {
                 await middleware(this);
@@ -124,6 +125,17 @@ class Router extends Base {
         }
     }
 
+    async _update_active_nav(path) {
+        const nav_links = document.querySelectorAll('.nav-link');
+        nav_links.forEach(link => {
+            if (link.getAttribute('href') === path) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+    
     // Convert path to regex pattern
     _path_to_regex(path) {
         return new RegExp(

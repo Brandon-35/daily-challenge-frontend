@@ -1,0 +1,42 @@
+// _nav.scss
+.app-nav {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 1rem;
+
+    .nav-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-item {
+        margin-bottom: 1rem;
+    }
+
+    .nav-link {
+        color: #333;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+        display: block;
+        padding: 0.5rem 1rem;
+
+        &:hover,
+        &.active {
+            color: #007bff;
+            background-color: #e9ecef;
+            border-radius: 4px;
+        }
+    }
+}
+
+.dashboard-container {
+    margin-left: 200px;
+    padding: 2rem;
+}

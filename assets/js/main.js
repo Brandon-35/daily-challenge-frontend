@@ -1,8 +1,7 @@
 import Base from './core/base.js';
 import Router from './core/router.js';
 import Store from './core/store.js';
-import Component from './core/component.js';
-
+import NavComponent from './components/nav_component.js';
 class challenge_tracker_app extends Base {
     constructor() {
         super();
@@ -181,7 +180,7 @@ class challenge_tracker_app extends Base {
             // Navigate to login page
             this.router.navigate_to('/login');
         });
-        
+
         // Check for existing user session
         const stored_user = this.get_from_storage('user');
         
@@ -199,6 +198,10 @@ class challenge_tracker_app extends Base {
             // No stored user, go to login
             this.router.navigate_to('/login');
         }
+        
+        const nav_component = new NavComponent();
+        await nav_component.mount(document.getElementById('app'));
+
     }
 
     // Placeholder for future implementation
