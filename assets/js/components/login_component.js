@@ -1,3 +1,4 @@
+// login_component.js
 import Component from '../core/component.js';
 
 class LoginComponent extends Component {
@@ -48,6 +49,7 @@ class LoginComponent extends Component {
                                 >
                             </div>
                         </div>
+                        <div id="login-error" class="error-message hidden"></div>
                         <button type="submit" class="btn btn--primary">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-icon">
                                 <path d="M11 7l-5.5 5.5 5.5 5.5V14h6v-4h-6V7zm0-5C5.48 2 2 5.48 2 10s3.48 8 8 8 8-3.48 8-8-3.48-8-8-8z"/>
@@ -63,52 +65,119 @@ class LoginComponent extends Component {
                 </div>
             `
         });
-    }
 
+        // Ensure store is set from options
+        this.store = options.store;
+        this.router = options.router;
+    }
     async mounted() {
         this.add_event('submit', '#login-form', this._handle_login);
         this.add_event('click', '.forgot-password', this._handle_forgot_password);
         this.add_event('click', '.create-account', this._handle_create_account);
     }
 
+    _show_error(message) {
+        const existing_error = this.element.querySelector('.login-error');
+        if (existing_error) {
+            existing_error.remove();
+        }
+
+        const error_element = this.create_element('div', {
+            class_list: ['login-error', 'error-shake'],
+            text_content: message,
+            attributes: {
+                'role': 'alert'
+            }
+        });
+
+        const form = this.element.querySelector('#login-form');
+        form.insertBefore(error_element, form.querySelector('button'));
+
+        setTimeout(() => {
+            if (error_element) {
+                error_element.classList.add('error-fade-out');
+                setTimeout(() => error_element.remove(), 500);
+            }
+        }, 3000);
+    }
+
+    _hide_error() {
+        const error_element = this.element.querySelector('.login-error');
+        if (error_element) {
+            error_element.remove();
+        }
+    }
+
     _handle_login = async (event) => {
         event.preventDefault();
-        
+        this._hide_error();
+
         const form = event.target;
         const username = form.querySelector('#username').value;
         const password = form.querySelector('#password').value;
 
+        const users = {
+            'demo': {
+                name: 'Demo User',
+                token: 'demo-token-12345',
+                challenges: [
+                    { id: 1, title: 'Daily Coding', progress: 50 },
+                    { id: 2, title: 'Exercise', progress: 30 }
+                ],
+                logs: [
+                    { date: '2024-02-15', description: 'Completed 2 hours coding' },
+                    { date: '2024-02-14', description: 'Workout session' }
+                ],
+                achievements: [
+                    { title: 'First Challenge', date: '2024-02-10' },
+                    { title: 'Streak 5 Days', date: '2024-02-15' }
+                ]
+            }
+        };
+
         if (!username || !password) {
-            alert('Please enter both username and password');
+            this._show_error('Please enter both username and password');
             return;
         }
 
-        if (username === 'demo' && password === 'password') {
-            this.store.commit('set_user', {
-                name: username,
-                token: 'mock-token-12345'
-            });
+        if (users[username] && password === 'password') {
+            const user_data = users[username];
 
-            this.run_global_hook('user:authenticate', {
-                name: username,
-                token: 'mock-token-12345'
-            });
+            if (this.store && this.store.commit) {
+                this.store.commit('set_user', user_data);
 
-            this.router.navigate_to('/');
+                user_data.challenges.forEach(challenge =>
+                    this.store.commit('update_challenge', challenge)
+                );
+
+                user_data.logs.forEach(log =>
+                    this.store.commit('add_log', log)
+                );
+
+                this.run_global_hook('user:authenticate', user_data);
+
+                if (this.router) {
+                    this.router.navigate_to('/');
+                }
+            } else {
+                console.error('Store or commit method is undefined');
+                this._show_error('Login system error');
+            }
         } else {
-            alert('Invalid username or password');
+            this._show_error('Invalid username or password');
         }
     }
 
     _handle_forgot_password = (event) => {
         event.preventDefault();
-        alert('Forgot password functionality coming soon!');
+        this._show_error('Forgot password functionality coming soon!');
     }
 
     _handle_create_account = (event) => {
         event.preventDefault();
-        alert('Create account functionality coming soon!');
+        this._show_error('Create account functionality coming soon!');
     }
+
 }
 
 export default LoginComponent;

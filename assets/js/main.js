@@ -62,7 +62,7 @@ class challenge_tracker_app extends Base {
 
     // Authentication middleware
     async auth_middleware(router) {
-        const user = router.app.store.get_state('user');
+        const user = this.store.get_state('user');
         if (!user) {
             router.navigate_to('/login');
             return false;
@@ -87,8 +87,8 @@ class challenge_tracker_app extends Base {
         // Add log to store
         this.store.commit('add_log', log_data);
         
-        // Send log to backend
-        await this.send_log_to_backend(log_data);
+        // Send log to backend (commented out for now)
+        // await this.send_log_to_backend(log_data);
     }
 
     // Handle challenge update
@@ -100,48 +100,27 @@ class challenge_tracker_app extends Base {
         await this.check_achievements(challenge_data);
     }
 
-    // Send log to backend service
-    async send_log_to_backend(log_data) {
-        try {
-            const response = await fetch('/api/logs', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${this.store.get_state('user.token')}`
-                },
-                body: JSON.stringify(log_data)
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to send log');
-            }
-        } catch (error) {
-            console.error('Log sending error:', error);
-            // Optionally, implement retry or offline storage
-        }
-    }
-
-    // Check and update achievements
-    async check_achievements(challenge_data) {
-        // TODO: Implement achievement logic
-        // This could involve:
-        // 1. Checking challenge completion
-        // 2. Calculating streaks
-        // 3. Generating AI-powered insights
-    }
-
     // Render methods for different routes
     async render_dashboard(router) {
         const dashboard_component = await import('./components/dashboard_component.js');
-        const dashboard = new dashboard_component({
+        const dashboard = new dashboard_component.default({
             store: this.store
         });
         await dashboard.mount(document.getElementById('app'));
     }
 
+    async render_login() {
+        const login_component = await import('./components/login_component.js');
+        const login = new login_component.default({
+            store: this.store,
+            router: this.router
+        });
+        await login.mount(document.getElementById('app'));
+    }
+
     async render_challenges(router) {
         const challenges_component = await import('./components/challenges_component.js');
-        const challenges = new challenges_component({
+        const challenges = new challenges_component.default({
             store: this.store
         });
         await challenges.mount(document.getElementById('app'));
@@ -149,7 +128,7 @@ class challenge_tracker_app extends Base {
 
     async render_logs(router) {
         const logs_component = await import('./components/logs_component.js');
-        const logs = new logs_component({
+        const logs = new logs_component.default({
             store: this.store
         });
         await logs.mount(document.getElementById('app'));
@@ -157,19 +136,10 @@ class challenge_tracker_app extends Base {
 
     async render_profile(router) {
         const profile_component = await import('./components/profile_component.js');
-        const profile = new profile_component({
+        const profile = new profile_component.default({
             store: this.store
         });
         await profile.mount(document.getElementById('app'));
-    }
-
-    async render_login() {
-        const { default: LoginComponent } = await import('./components/login_component.js');
-        const login = new LoginComponent({
-            store: this.store,
-            router: this.router
-        });
-        await login.mount(document.getElementById('app'));
     }
 
     // Initialize application
@@ -198,22 +168,9 @@ class challenge_tracker_app extends Base {
         if (stored_user) {
             try {
                 const user_data = JSON.parse(stored_user);
-                // Validate token with backend
-                const response = await fetch('/api/validate_token', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ token: user_data.token })
-                });
-
-                if (response.ok) {
-                    this.run_global_hook('user:authenticate', user_data);
-                } else {
-                    // Token invalid, clear storage and redirect to login
-                    this.clear_storage();
-                    this.router.navigate_to('/login');
-                }
+                // In mock version, directly set user
+                this.store.commit('set_user', user_data);
+                this.router.navigate_to('/');
             } catch (error) {
                 console.error('Session restoration error:', error);
                 this.router.navigate_to('/login');
@@ -222,6 +179,12 @@ class challenge_tracker_app extends Base {
             // No stored user, go to login
             this.router.navigate_to('/login');
         }
+    }
+
+    // Placeholder for future implementation
+    async check_achievements(challenge_data) {
+        // TODO: Implement achievement logic
+        console.log('Checking achievements for:', challenge_data);
     }
 }
 
