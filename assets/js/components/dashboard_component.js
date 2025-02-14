@@ -9,22 +9,57 @@ class DashboardComponent extends Component {
         });
     }
 
-    _create_challenges_section(challenges) {
-        const section = this.create_element('section', {
-            class_list: ['daily-challenges'],
+    _create_section_header(title, icon_path) {
+        return this.create_element('div', {
+            class_list: ['section-header'],
             children: [
+                this.create_element('svg', {
+                    attributes: {
+                        xmlns: 'http://www.w3.org/2000/svg',
+                        viewBox: '0 0 24 24',
+                        class: 'section-icon'
+                    },
+                    children: [
+                        this.create_element('path', {
+                            attributes: { d: icon_path }
+                        })
+                    ]
+                }),
                 this.create_element('h2', { 
-                    text_content: 'Today\'s Challenges' 
+                    text_content: title 
                 })
             ]
         });
+    }
+
+    _create_challenges_section(challenges) {
+        const section = this.create_element('section', {
+            class_list: ['dashboard-section', 'daily-challenges']
+        });
+
+        // Challenges header with icon
+        section.appendChild(this._create_section_header(
+            'Today\'s Challenges', 
+            'M13 12h7v1.5c0 3-2 4.5-5 4.5h-4v-2h4c1.5 0 2.5-.5 2.5-2v-1h-6c-1.5 0-2.5-1-2.5-2.5V8c0-1.5 1-2.5 2.5-2.5h3V4h1.5v2h2v1.5h-2v1h2v1.5h-2v1c0 .5.5 1 1 1h1c.5 0 1-.5 1-1V9h1.5v2.5c0 1.5-1 2.5-2.5 2.5z'
+        ));
+
+        const content = this.create_element('div', {
+            class_list: ['section-content']
+        });
 
         if (!challenges || challenges.length === 0) {
-            section.appendChild(
+            content.appendChild(
                 this.create_element('p', { 
-                    text_content: 'No challenges today. Create a new challenge!' 
+                    text_content: 'No challenges today. Create a new challenge!',
+                    class_list: ['empty-state']
                 })
             );
+
+            const create_button = this.create_element('button', {
+                text_content: '+ Create Challenge',
+                class_list: ['btn', 'btn--primary', 'create-challenge-btn']
+            });
+            content.appendChild(create_button);
         } else {
             const challengesList = this.create_element('ul', {
                 class_list: ['challenges-list']
@@ -38,9 +73,20 @@ class DashboardComponent extends Component {
                             class_list: ['challenge-name'],
                             text_content: challenge.title 
                         }),
-                        this.create_element('span', { 
-                            class_list: ['challenge-progress'],
-                            text_content: `${challenge.progress}%` 
+                        this.create_element('div', { 
+                            class_list: ['challenge-progress-wrapper'],
+                            children: [
+                                this.create_element('div', {
+                                    class_list: ['challenge-progress-bar'],
+                                    attributes: {
+                                        style: `width: ${challenge.progress}%`
+                                    }
+                                }),
+                                this.create_element('span', { 
+                                    class_list: ['challenge-progress-text'],
+                                    text_content: `${challenge.progress}%` 
+                                })
+                            ]
                         })
                     ]
                 });
@@ -48,26 +94,33 @@ class DashboardComponent extends Component {
                 challengesList.appendChild(challengeItem);
             });
 
-            section.appendChild(challengesList);
+            content.appendChild(challengesList);
         }
 
+        section.appendChild(content);
         return section;
     }
 
     _create_logs_section(logs) {
         const section = this.create_element('section', {
-            class_list: ['recent-logs'],
-            children: [
-                this.create_element('h2', { 
-                    text_content: 'Recent Activity' 
-                })
-            ]
+            class_list: ['dashboard-section', 'recent-logs']
+        });
+
+        // Logs header with icon
+        section.appendChild(this._create_section_header(
+            'Recent Activity', 
+            'M13 4h-2v7l4.4 2.8l.8-1.2l-3.2-2V4M2 19h1c.6 0 1-.4 1-1v-5c0-.6-.4-1-1-1H2v7m4 0h1c.6 0 1-.4 1-1v-5c0-.6-.4-1-1-1H6v7m-3-8h7v-2H3v2m12 8h1c.6 0 1-.4 1-1v-5c0-.6-.4-1-1-1h-1v7m-2 0h1l1-3v-4h-5v4l1 3h1'
+        ));
+
+        const content = this.create_element('div', {
+            class_list: ['section-content']
         });
 
         if (!logs || logs.length === 0) {
-            section.appendChild(
+            content.appendChild(
                 this.create_element('p', { 
-                    text_content: 'No recent activity.' 
+                    text_content: 'No recent activity.',
+                    class_list: ['empty-state']
                 })
             );
         } else {
@@ -92,26 +145,33 @@ class DashboardComponent extends Component {
                 logsList.appendChild(logItem);
             });
 
-            section.appendChild(logsList);
+            content.appendChild(logsList);
         }
 
+        section.appendChild(content);
         return section;
     }
 
     _create_achievements_section(achievements) {
         const section = this.create_element('section', {
-            class_list: ['achievements'],
-            children: [
-                this.create_element('h2', { 
-                    text_content: 'Achievements' 
-                })
-            ]
+            class_list: ['dashboard-section', 'achievements']
+        });
+
+        // Achievements header with icon
+        section.appendChild(this._create_section_header(
+            'Achievements', 
+            'M12 1L9 9l-8 1 6 5.5L5 23l7-4 7 4l-2-7.5L23 10l-8-1z'
+        ));
+
+        const content = this.create_element('div', {
+            class_list: ['section-content']
         });
 
         if (!achievements || achievements.length === 0) {
-            section.appendChild(
+            content.appendChild(
                 this.create_element('p', { 
-                    text_content: 'No achievements yet. Keep challenging yourself!' 
+                    text_content: 'No achievements yet. Keep challenging yourself!',
+                    class_list: ['empty-state']
                 })
             );
         } else {
@@ -136,33 +196,52 @@ class DashboardComponent extends Component {
                 achievementsList.appendChild(achievementItem);
             });
 
-            section.appendChild(achievementsList);
+            content.appendChild(achievementsList);
         }
 
+        section.appendChild(content);
         return section;
     }
 
     async render() {
+        // Get user information from store
+        const state = this.store ? this.store.get_state() : {};
+        const user = state.user || {};
+    
         // Clear previous content
         this.ui.clear_container(this.element);
-
+    
         // Create dashboard content
-        const state = this.store ? this.store.get_state() : {};
         const dashboard = this.create_element('div', {
             class_list: ['dashboard'],
             children: [
-                this.create_element('h1', { 
-                    text_content: `Welcome, ${state.user ? state.user.name : 'User'}!` 
+                this.create_element('header', {
+                    class_list: ['dashboard-header'],
+                    children: [
+                        this.create_element('h1', { 
+                            text_content: `Welcome, ${user.name || 'User'}!`,
+                            class_list: ['welcome-title']
+                        }),
+                        this.create_element('button', {
+                            text_content: 'Logout',
+                            class_list: ['btn', 'btn--secondary', 'logout-btn'],
+                            events: {
+                                click: () => {
+                                    this.store.dispatch('logout');
+                                }
+                            }
+                        })
+                    ]
                 }),
                 this._create_challenges_section(state.challenges),
                 this._create_logs_section(state.logs),
                 this._create_achievements_section(state.achievements)
             ]
         });
-
+    
         // Append dashboard to component's element
         this.element.appendChild(dashboard);
-
+    
         return this;
     }
 

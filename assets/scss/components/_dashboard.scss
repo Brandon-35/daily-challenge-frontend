@@ -1,65 +1,247 @@
-// Dashboard Specific Styles
+// Variables
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$text-color: #2c3e50;
+$background-color: #f5f7fa;
+$white: #ffffff;
+$light-gray: #ecf0f1;
+$dark-gray: #7f8c8d;
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin shadow-light {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@mixin transition-smooth {
+    transition: all 0.3s ease;
+}
+
+// Dashboard Styles
 .dashboard {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: $white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: $background-color;
+    border-radius: 12px;
+    
+    @include shadow-light;
 
-    h1 {
-        color: $dark-blue;
-        margin-bottom: 20px;
-        text-align: center;
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
     }
 
-    section {
-        margin-bottom: 30px;
-        padding: 15px;
-        border-radius: 5px;
-        background-color: $light-gray;
+    .welcome-title {
+        font-size: 24px;
+        color: $text-color;
+        font-weight: 600;
+    }
 
-        h2 {
-            color: $dark-navy;
-            border-bottom: 2px solid $primary-blue;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+    .logout-btn {
+        @include transition-smooth;
+        
+        &:hover {
+            background-color: darken($light-gray, 10%);
+        }
+    }
+}
+
+// Dashboard Sections
+.dashboard-section {
+    background-color: $white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    @include shadow-light;
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        border-bottom: 2px solid $light-gray;
+        padding-bottom: 10px;
+
+        .section-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            fill: $primary-color;
         }
 
-        &-list {
-            list-style-type: none;
+        h2 {
+            margin: 0;
+            font-size: 18px;
+            color: $text-color;
+        }
+    }
 
-            li {
-                display: flex;
-                justify-content: space-between;
-                padding: 10px;
-                border-bottom: 1px solid $border-light;
-                transition: background-color 0.3s ease;
+    .section-content {
+        .empty-state {
+            @include flex-center;
+            color: $dark-gray;
+            font-style: italic;
+            padding: 20px;
+        }
 
-                &:hover {
-                    background-color: $hover-light;
-                    cursor: pointer;
-                }
+        .create-challenge-btn {
+            @include flex-center;
+            width: 100%;
+            margin-top: 15px;
+            @include transition-smooth;
+
+            &:hover {
+                background-color: darken($primary-color, 10%);
             }
         }
     }
+}
 
-    .challenge {
-        &-progress {
-            color: $success-green;
-            font-weight: bold;
-        }
-    }
-
-    .log {
-        &-date {
-            color: $text-muted;
-            margin-right: 10px;
-        }
-    }
-
-    // Responsive design
-    @media (max-width: 600px) {
-        width: 100%;
+// Challenges List
+.challenges-list {
+    li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         padding: 10px;
+        border-bottom: 1px solid $light-gray;
+        
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .challenge-name {
+            font-weight: 500;
+        }
+
+        .challenge-progress-wrapper {
+            display: flex;
+            align-items: center;
+
+            .challenge-progress-bar {
+                width: 100px;
+                height: 10px;
+                background-color: $light-gray;
+                border-radius: 5px;
+                margin-right: 10px;
+                overflow: hidden;
+
+                &-inner {
+                    height: 100%;
+                    background-color: $secondary-color;
+                    transition: width 0.5s ease;
+                }
+            }
+
+            .challenge-progress-text {
+                color: $dark-gray;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+// Logs List
+.logs-list {
+    li {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid $light-gray;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .log-date {
+            color: $dark-gray;
+            margin-right: 15px;
+        }
+
+        .log-description {
+            flex-grow: 1;
+            color: $text-color;
+        }
+    }
+}
+
+// Achievements List
+.achievements-list {
+    li {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid $light-gray;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .achievement-name {
+            font-weight: 500;
+        }
+
+        .achievement-date {
+            color: $dark-gray;
+        }
+    }
+}
+
+// Button Styles
+.btn {
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    @include transition-smooth;
+
+    &--primary {
+        background-color: $primary-color;
+        color: $white;
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+        }
+    }
+
+    &--secondary {
+        background-color: $light-gray;
+        color: $text-color;
+
+        &:hover {
+            background-color: darken($light-gray, 10%);
+        }
+    }
+}
+
+// Responsive Design
+@media (max-width: 600px) {
+    .dashboard {
+        padding: 10px;
+        
+        &-header {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .logout-btn {
+            margin-top: 10px;
+        }
+    }
+
+    .challenges-list,
+    .logs-list,
+    .achievements-list {
+        li {
+            flex-direction: column;
+            align-items: flex-start;
+        }
     }
 }

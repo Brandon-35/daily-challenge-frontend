@@ -48,6 +48,7 @@ class challenge_tracker_app extends Base {
         this.init();
     }
 
+    
     // Register global application hooks
     register_global_hooks() {
         // User authentication hook
@@ -102,11 +103,19 @@ class challenge_tracker_app extends Base {
 
     // Render methods for different routes
     async render_dashboard(router) {
+        // Clear previous components
+        const app_container = document.getElementById('app');
+        app_container.innerHTML = ''; 
+    
+        // Import and initialize dashboard component
         const dashboard_component = await import('./components/dashboard_component.js');
         const dashboard = new dashboard_component.default({
-            store: this.store
+            store: this.store,
+            parent: app_container
         });
-        await dashboard.mount(document.getElementById('app'));
+        
+        // Mount dashboard to container
+        await dashboard.mount(app_container);
     }
 
     async render_login() {
@@ -162,6 +171,17 @@ class challenge_tracker_app extends Base {
             }
         });
 
+        this.store.register_action('logout', async (store) => {
+            // Remove user from store
+            store.commit('set_user', null);
+            
+            // Clear stored data
+            localStorage.removeItem(`${this.get_state('storage_prefix')}-1.0.0-user`);
+            
+            // Navigate to login page
+            this.router.navigate_to('/login');
+        });
+        
         // Check for existing user session
         const stored_user = this.get_from_storage('user');
         
