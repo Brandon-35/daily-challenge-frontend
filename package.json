@@ -1,0 +1,22 @@
+{
+  "name": "daily-challenge-frontend",
+  "version": "1.0.0",
+  "description": "A gamified challenge tracking application built with vanilla JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.6.1",
+    "livereload": "^0.9.3"
+  }
+}
