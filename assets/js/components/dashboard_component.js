@@ -5,7 +5,7 @@ class DashboardComponent extends Component {
         super({
             ...options,
             tag: 'div',
-            class_name: 'dashboard-container'
+            class_name: 'dashboard-container page-content'
         });
     }
 
