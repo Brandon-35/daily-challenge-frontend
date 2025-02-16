@@ -1,4 +1,6 @@
+// challenges_component.js
 import Component from '../core/component.js';
+import ChallengeItemComponent from './challenge_item_component.js';
 
 class ChallengesComponent extends Component {
     constructor(options = {}) {
@@ -9,49 +11,37 @@ class ChallengesComponent extends Component {
         });
 
         this.store = options.store;
-        this.router = options.router; // Thêm router vào constructor
+        this.router = options.router;
     }
 
-    create_challenge_item(challenge) {
-        return this.create_element('li', {
-            class_list: ['challenge-item'],
-            dataset: {
-                id: challenge.id
-            },
-            children: [
-                this.create_element('div', {
-                    class_list: ['challenge-info'],
-                    children: [
-                        this.create_element('span', {
-                            class_list: ['challenge-name'], 
-                            text_content: challenge.title
-                        }),
-                        this.create_element('span', {
-                            class_list: ['challenge-description'],
-                            text_content: challenge.description
-                        })
-                    ]
-                }),
-                this.create_element('div', {
-                    class_list: ['challenge-progress'],
-                    children: [
-                        this.create_element('div', {
-                            class_list: ['progress-bar'],
-                            attributes: {
-                                style: `width: ${challenge.progress}%;`
-                            }
-                        }),
-                        this.create_element('span', {
-                            class_list: ['progress-value'], 
-                            text_content: `${challenge.progress}%`
-                        })
-                    ]
-                })
-            ],
-            events: {
-                click: () => this.view_challenge(challenge.id)
-            }
+    get_progress_class(progress) {
+        if (progress < 20) return 'progress-danger';
+        if (progress < 50) return 'progress-warning';
+        if (progress < 80) return 'progress-info';
+        return 'progress-success';
+    }
+
+    async create_challenge_item(challenge) {
+        const challenge_item = new ChallengeItemComponent({
+            challenge,
+            router: this.router,
+            onView: (challenge) => this.view_challenge(challenge.id),
+            onEdit: (challenge) => this.edit_challenge(challenge.id),
+            onDelete: (challenge) => this.delete_challenge(challenge.id)
         });
+        
+        await challenge_item.mount();
+        return challenge_item.element;
+    }
+
+    edit_challenge(id) {
+        console.log('Edit challenge:', id);
+        // TODO: Implement edit functionality
+    }
+
+    delete_challenge(id) {
+        console.log('Delete challenge:', id);
+        // TODO: Implement delete functionality
     }
 
     create_empty_state() {
@@ -70,11 +60,12 @@ class ChallengesComponent extends Component {
         this.ui.clear_container(this.element);
 
         // Get challenges from store
-        const challenges = this.store.get_state('challenges') || [];
+        const challenges = this.store.get_state('challenges');
 
         const wrappers = this.create_element('div', {
             class_list: ['challenges-wrapper']
         });
+        
         // Create header section
         const header = this.create_element('header', {
             class_list: ['challenges-header'],
@@ -84,7 +75,7 @@ class ChallengesComponent extends Component {
                 }),
                 this.create_element('button', {
                     class_list: ['btn', 'btn--primary', 'create-challenge-btn'],
-                    text_content: 'Create Challenge',
+                    text_content: '+ Create Challenge',
                     events: {
                         click: this.open_create_popup.bind(this)
                     }
@@ -100,9 +91,10 @@ class ChallengesComponent extends Component {
                 class_list: ['challenges-list']
             });
 
-            challenges.forEach(challenge => {
-                list.appendChild(this.create_challenge_item(challenge));
-            });
+            for (const challenge of challenges) {
+                const itemElement = await this.create_challenge_item(challenge);
+                list.appendChild(itemElement);
+            }
 
             wrappers.appendChild(list);
         } else {
@@ -110,7 +102,7 @@ class ChallengesComponent extends Component {
         }
 
         this.element.appendChild(wrappers);
-
+        
         return this;
     }
 

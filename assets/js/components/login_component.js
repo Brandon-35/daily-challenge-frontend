@@ -122,8 +122,56 @@ class LoginComponent extends Component {
                 name: 'Demo User',
                 token: 'demo-token-12345',
                 challenges: [
-                    { id: 1, title: 'Daily Coding', progress: 50 },
-                    { id: 2, title: 'Exercise', progress: 30 }
+                    {
+                        id: 1,
+                        title: "Học lập trình mỗi ngày",
+                        description: "Dành ít nhất 2 giờ mỗi ngày để học và thực hành lập trình",
+                        progress: 85,
+                        category: "Learning",
+                        status: "active",
+                        startDate: "2024-02-01",
+                        endDate: "2024-03-01"
+                    },
+                    {
+                        id: 2,
+                        title: "Tập thể dục buổi sáng",
+                        description: "30 phút tập thể dục mỗi buổi sáng để cải thiện sức khỏe",
+                        progress: 45,
+                        category: "Health",
+                        status: "active",
+                        startDate: "2024-02-10",
+                        endDate: "2024-03-10"
+                    },
+                    {
+                        id: 3,
+                        title: "Đọc sách mỗi ngày",
+                        description: "Đọc ít nhất 30 phút sách mỗi ngày để phát triển bản thân",
+                        progress: 15,
+                        category: "Personal Development",
+                        status: "active",
+                        startDate: "2024-02-15",
+                        endDate: "2024-03-15"
+                    },
+                    {
+                        id: 4,
+                        title: "Thực hành thiền",
+                        description: "Dành 15 phút mỗi ngày để thực hành thiền và chánh niệm",
+                        progress: 65,
+                        category: "Mindfulness",
+                        status: "active",
+                        startDate: "2024-02-05",
+                        endDate: "2024-03-05"
+                    },
+                    {
+                        id: 5,
+                        title: "Học tiếng Anh",
+                        description: "Học và thực hành tiếng Anh 1 giờ mỗi ngày",
+                        progress: 95,
+                        category: "Language",
+                        status: "active",
+                        startDate: "2024-01-20",
+                        endDate: "2024-02-20"
+                    }
                 ],
                 logs: [
                     { date: '2024-02-15', description: 'Completed 2 hours coding' },
