@@ -228,6 +228,19 @@ class Component extends Base {
             return this.get_state(key.trim()) || '';
         });
     }
+
+    async unmount() {
+        if (this.element && this.element.parentNode) {
+            // Remove event listeners
+            this._unbind_events();
+            
+            // Remove from DOM
+            this.element.parentNode.removeChild(this.element);
+            
+            // Clear references
+            this.element = null;
+        }
+    }
 }
 
 export default Component;

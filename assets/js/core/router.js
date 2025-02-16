@@ -56,7 +56,9 @@ class Router extends Base {
         });
 
         // Handle initial route
-        this._handle_route();
+        window.addEventListener('load', () => {
+            this._handle_route();
+        });
         
         // Intercept link clicks
         document.addEventListener('click', (e) => {
@@ -77,7 +79,6 @@ class Router extends Base {
         let matched_route = null;
         let params = {};
 
-        // Find matching route
         for (const [pattern, route] of this.routes) {
             const match = path.match(pattern);
             if (match) {
@@ -87,32 +88,28 @@ class Router extends Base {
             }
         }
 
-        // Handle 404
         if (!matched_route) {
             return this.config.not_found_handler();
         }
 
-        // Store route info
         this.current_route = matched_route;
         this.params = params;
         this.query = this._extract_query();
 
         try {
-            this._update_active_nav(path);
-            // Run global middlewares
+            const app_container = document.getElementById('app');
+            app_container.innerHTML = '';
+
             for (const middleware of this.middlewares) {
                 await middleware(this);
             }
 
-            // Run route middlewares
             for (const middleware of matched_route.middleware) {
                 await middleware(this);
             }
 
-            // Execute route handler
             await matched_route.handler(this);
             
-            // Run hook after route change
             this.run_hook('route:change', {
                 path,
                 params: this.params,

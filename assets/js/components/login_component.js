@@ -7,6 +7,7 @@ class LoginComponent extends Component {
             ...options,
             tag: 'div',
             class_name: 'login-container',
+            parent: options.parent || document.body,
             template: () => `
                 <div class="login-wrapper">
                     <div class="login-header">
