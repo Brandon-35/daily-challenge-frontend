@@ -1,0 +1,112 @@
+.page-container {
+    min-height: 100vh;
+    background-color: $background-light;
+    padding: $spacing-lg;
+}
+
+// Page Header
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-xl;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid $border-light;
+}
+
+.page-title-section {
+    .page-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin-bottom: $spacing-xs;
+    }
+
+    .page-subtitle {
+        font-size: 0.875rem;
+        color: $text-secondary;
+    }
+}
+
+.page-actions {
+    display: flex;
+    gap: $spacing-sm;
+}
+
+// Content Sections
+.content-section {
+    background: $white;
+    border-radius: $border-radius-lg;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-lg;
+    box-shadow: $shadow-sm;
+
+    .section-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin-bottom: $spacing-lg;
+    }
+}
+
+// Cards
+.card {
+    background: $white;
+    border-radius: $border-radius-md;
+    padding: $spacing-md;
+    box-shadow: $shadow-sm;
+    transition: $transition-base;
+
+    &:hover {
+        box-shadow: $shadow-md;
+    }
+
+    .card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin-bottom: $spacing-md;
+    }
+
+    .card-content {
+        color: $text-secondary;
+    }
+}
+
+// Grid Layout
+.grid {
+    display: grid;
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+
+    &.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+    &.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+    &.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .page-container {
+        padding: $spacing-md;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $spacing-md;
+    }
+
+    .grid {
+        &.grid-cols-2,
+        &.grid-cols-3,
+        &.grid-cols-4 {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+// Utility Classes
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.mb-0 { margin-bottom: 0; }
+.mt-auto { margin-top: auto; } 
