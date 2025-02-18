@@ -1,7 +1,9 @@
-// _nav.scss
+@use '../base/variables' as *;
+@use 'sass:map';
+
 .app-nav {
     background-color: $white;
-    box-shadow: $shadow-medium;
+    box-shadow: $shadow-md;
     width: 250px;
     min-height: 100vh;
     position: fixed;
@@ -12,7 +14,7 @@
     z-index: $z-index-fixed;
 
     .nav-logo {
-        padding: $spacing-md 0 $spacing-xl;
+        padding: map.get($spacing-text, md) 0 $spacing-xl;
         border-bottom: 1px solid $border-light;
         margin-bottom: $spacing-lg;
 
@@ -36,7 +38,7 @@
     .nav-link {
         display: flex;
         align-items: center;
-        padding: $spacing-sm $spacing-md;
+        padding: map.get($spacing-text, sm) map.get($spacing-text, md);
         color: $text-secondary;
         font-weight: 500;
         border-radius: $border-radius-md;

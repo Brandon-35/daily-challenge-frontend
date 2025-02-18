@@ -1,21 +1,20 @@
-// Base imports
-@import 'base/variables';
-@import 'base/reset';
-@import 'base/typography';
+@use 'sass:color';
+@use 'sass:map';
 
-// Layout imports
-@import 'layout/grid';
-@import 'layout/header';
-@import 'layout/footer';
-
-// Component imports
-@import 'components/dashboard';
-@import 'components/challenges';
-@import 'components/buttons';
-@import 'components/login';
-@import 'components/nav';
-@import 'components/challenge_item';
-
-// Theme imports
-@import 'themes/light';
-@import 'themes/dark';
+@use 'base/variables';
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/layout';
+@use 'layout/grid';
+@use 'layout/header';
+@use 'layout/footer';
+@use 'components/buttons';
+@use 'components/nav';
+@use 'components/page';
+@use 'components/dashboard';
+@use 'components/challenges';
+@use 'components/login';
+@use 'components/challenge_item';
+@use 'components/style_guide';
+@use 'themes/light';
+@use 'themes/dark';

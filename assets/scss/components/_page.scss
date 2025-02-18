@@ -1,7 +1,10 @@
+@use '../base/variables' as *;
+@use 'sass:map';
+@use 'sass:color';
 .page-container {
     min-height: 100vh;
-    background-color: $background-light;
-    padding: $spacing-lg;
+    background-color: $color-background;
+    padding: map.get($spacing-container, lg);
 }
 
 // Page Header
@@ -10,90 +13,168 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: $spacing-xl;
-    padding-bottom: $spacing-md;
-    border-bottom: 1px solid $border-light;
+    padding-bottom: map.get($spacing-text, md);
+    border-bottom: 1px solid $color-gray-200;
 }
 
 .page-title-section {
     .page-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: $text-primary;
-        margin-bottom: $spacing-xs;
+        font-size: $font-size-h1;
+        font-weight: $font-weight-semibold;
+        color: $color-text;
+        margin-bottom: map.get($spacing-text, sm);
     }
 
     .page-subtitle {
-        font-size: 0.875rem;
-        color: $text-secondary;
+        font-size: $font-size-small;
+        color: $color-gray-900;
     }
 }
 
 .page-actions {
     display: flex;
-    gap: $spacing-sm;
+    gap: $spacing-gutter;
 }
 
 // Content Sections
 .content-section {
-    background: $white;
+    background: $color-background;
     border-radius: $border-radius-lg;
-    padding: $spacing-lg;
-    margin-bottom: $spacing-lg;
+    padding: map.get($spacing-container, sm);
+    margin-bottom: map.get($spacing-text, lg);
     box-shadow: $shadow-sm;
 
     .section-title {
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: $text-primary;
-        margin-bottom: $spacing-lg;
+        font-size: $font-size-h3;
+        font-weight: $font-weight-semibold;
+        color: $color-text;
+        margin-bottom: map.get($spacing-text, lg);
     }
 }
 
 // Cards
 .card {
-    background: $white;
+    background: $color-background;
     border-radius: $border-radius-md;
-    padding: $spacing-md;
+    padding: map.get($spacing-text, md);
     box-shadow: $shadow-sm;
     transition: $transition-base;
+    border: 1px solid $color-gray-200;
 
     &:hover {
         box-shadow: $shadow-md;
+        border-color: $color-gray-300;
     }
 
     .card-title {
-        font-size: 1rem;
-        font-weight: 600;
-        color: $text-primary;
-        margin-bottom: $spacing-md;
+        font-size: $font-size-body;
+        font-weight: $font-weight-semibold;
+        color: $color-text;
+        margin-bottom: map.get($spacing-text, md);
     }
 
     .card-content {
-        color: $text-secondary;
+        color: $color-gray-900;
+    }
+}
+
+// Stats Cards
+.stat-card {
+    text-align: center;
+    
+    .stat-value {
+        .number {
+            font-size: $font-size-h2;
+            font-weight: $font-weight-semibold;
+            color: $color-primary;
+            display: block;
+        }
+        
+        .label {
+            font-size: $font-size-small;
+            color: $color-gray-900;
+            margin-top: map.get($spacing-text, sm);
+        }
     }
 }
 
 // Grid Layout
 .grid {
     display: grid;
-    gap: $spacing-md;
-    margin-bottom: $spacing-lg;
+    gap: $spacing-gutter;
+    margin-bottom: map.get($spacing-text, lg);
 
-    &.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
-    &.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
-    &.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+    &.grid-cols-2 { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    &.grid-cols-3 { 
+        grid-template-columns: repeat(3, 1fr); 
+    }
+    &.grid-cols-4 { 
+        grid-template-columns: repeat(4, 1fr); 
+    }
 }
 
-// Responsive
+// Empty States
+.empty-state {
+    text-align: center;
+    padding: $spacing-xl;
+    color: $color-gray-900;
+    
+    p {
+        margin-bottom: map.get($spacing-text, md);
+    }
+}
+
+// Lists
+.challenges-list,
+.activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        padding: map.get($spacing-text, md);
+        border-bottom: 1px solid $color-gray-200;
+        
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+// Progress Bar
+.progress-bar {
+    background: $color-gray-100;
+    border-radius: $border-radius-sm;
+    height: 8px;
+    overflow: hidden;
+
+    .progress {
+        background: $color-primary;
+        height: 100%;
+        transition: width $transition-base;
+    }
+}
+
+// Responsive Design
 @media (max-width: 768px) {
     .page-container {
-        padding: $spacing-md;
+        padding: map.get($spacing-container, sm);
     }
 
     .page-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: $spacing-md;
+        gap: map.get($spacing-text, md);
+    }
+
+    .page-actions {
+        width: 100%;
+        
+        .btn {
+            flex: 1;
+        }
     }
 
     .grid {
@@ -102,6 +183,34 @@
         &.grid-cols-4 {
             grid-template-columns: 1fr;
         }
+    }
+}
+
+// Dark Mode Support
+@media (prefers-color-scheme: dark) {
+    .page-container {
+        background-color: $color-background-dark;
+    }
+
+    .content-section,
+    .card {
+        background: color.scale($color-background-dark, $lightness: 5%);
+        border-color: color.adjust($color-background-dark, $lightness: 10%);
+    }
+
+    .page-title-section .page-title,
+    .section-title,
+    .card-title {
+        color: $color-background;
+    }
+
+    .page-subtitle,
+    .card-content {
+        color: $color-gray-300;
+    }
+
+    .progress-bar {
+        background: rgba($color-gray-900, 0.2);
     }
 }
 

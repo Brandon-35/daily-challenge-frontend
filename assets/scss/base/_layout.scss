@@ -1,0 +1,24 @@
+@use 'sass:map';
+@use './variables' as *;
+
+.container {
+    padding-left: map.get($spacing-container, sm);
+    padding-right: map.get($spacing-container, sm);
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+
+    @media (min-width: 768px) {
+        padding-left: map.get($spacing-container, lg);
+        padding-right: map.get($spacing-container, lg);
+    }
+}
+
+.grid {
+    display: grid;
+    gap: $spacing-gutter;
+}
+
+.section {
+    margin-bottom: $spacing-xl;
+} 

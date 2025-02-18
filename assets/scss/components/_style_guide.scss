@@ -1,0 +1,67 @@
+@use '../base/variables' as *;
+@use 'sass:map';
+@use 'sass:color';
+.style-guide-container {
+    .style-section {
+        margin-bottom: $spacing-xl;
+
+        > * {
+            margin-bottom: map.get($spacing-text, md);
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: $spacing-gutter;
+
+        .color-item {
+            height: 100px;
+            border-radius: $border-radius-md;
+            display: flex;
+            align-items: flex-end;
+            padding: map.get($spacing-text, md);
+            color: $color-background;
+            
+            &.bg-primary { background-color: $color-primary; }
+            &.bg-blue { background-color: $color-blue; }
+            &.bg-green { background-color: $color-green; }
+            &.bg-red { background-color: $color-red; }
+            &.bg-yellow { 
+                background-color: $color-yellow;
+                color: $color-text;
+            }
+        }
+    }
+
+    .button-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: $spacing-gutter;
+
+        .btn {
+            width: 100%;
+        }
+    }
+
+    code {
+        display: block;
+        padding: map.get($spacing-text, md);
+        background: $color-gray-100;
+        border-radius: $border-radius-md;
+        margin: map.get($spacing-text, md) 0;
+    }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+    .style-guide-container {
+        code {
+            background: color.adjust($color-background-dark, $lightness: 5%);
+        }
+    }
+} 

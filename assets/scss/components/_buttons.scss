@@ -1,0 +1,70 @@
+@use '../base/variables' as *;
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $border-radius-md;
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-body;
+    transition: $transition-base;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    // Primary Button
+    &-primary {
+        background-color: $color-primary;
+        color: $color-background;
+
+        &:hover:not(:disabled) {
+            filter: brightness(90%);
+        }
+    }
+
+    // Secondary Button
+    &-secondary {
+        background-color: transparent;
+        border: 1px solid $color-gray-300;
+        color: $color-text;
+
+        &:hover:not(:disabled) {
+            background-color: $color-gray-100;
+        }
+    }
+
+    // Success Button
+    &-success {
+        background-color: $color-green;
+        color: $color-background;
+
+        &:hover:not(:disabled) {
+            filter: brightness(90%);
+        }
+    }
+
+    // Danger Button
+    &-danger {
+        background-color: $color-red;
+        color: $color-background;
+
+        &:hover:not(:disabled) {
+            filter: brightness(90%);
+        }
+    }
+
+    // Warning Button
+    &-warning {
+        background-color: $color-yellow;
+        color: $color-text;
+
+        &:hover:not(:disabled) {
+            filter: brightness(90%);
+        }
+    }
+}

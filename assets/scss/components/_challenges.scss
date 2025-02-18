@@ -1,15 +1,18 @@
+@use 'sass:color';
+@use '../base/variables' as *;
+
 // Challenges Page Styles
 .challenges-container {
-    background: linear-gradient(135deg, #f6f9fc 0%, #f1f4f9 100%);
+    background: linear-gradient(135deg, $color-gray-100 0%, color.adjust($color-gray-100, $lightness: -5%) 100%);
     min-height: 100vh;
 
     .challenges-wrapper {
         max-width: 1200px;
         margin: 0 auto;
         padding: 2rem;
-        background-color: rgba(255, 255, 255, 0.95);
+        background-color: rgba($color-background, 0.95);
         border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        box-shadow: $shadow-lg;
         backdrop-filter: blur(10px);
 
         .challenges-header {
@@ -170,7 +173,7 @@
 
 
 .create-challenge-btn {
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    background: linear-gradient(135deg, $color-primary 0%, color.adjust($color-primary, $lightness: -10%) 100%);
     color: #ffffff;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
@@ -182,7 +185,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.25);
+    box-shadow: $shadow-md;
 
     &:before {
         content: '+';
@@ -191,9 +194,9 @@
     }
 
     &:hover {
-        background: linear-gradient(135deg, #2980b9 0%, #2472a4 100%);
+        background: linear-gradient(135deg, color.adjust($color-primary, $lightness: -5%) 0%, color.adjust($color-primary, $lightness: -15%) 100%);
         transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(52, 152, 219, 0.35);
+        box-shadow: $shadow-lg;
     }
 
     &:active {

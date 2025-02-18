@@ -1,0 +1,44 @@
+@use 'sass:map';
+@use './variables' as *;
+
+body {
+    font-family: $font-family-primary;
+    font-size: $font-size-body;
+    font-weight: $font-weight-regular;
+    color: $color-text;
+    line-height: 1.5;
+}
+
+h1, .h1 {
+    font-size: $font-size-h1;
+    font-weight: $font-weight-semibold;
+    margin-bottom: map.get($spacing-text, lg);
+}
+
+h2, .h2 {
+    font-size: $font-size-h2;
+    font-weight: $font-weight-semibold;
+    margin-bottom: map.get($spacing-text, md);
+}
+
+h3, .h3 {
+    font-size: $font-size-h3;
+    font-weight: $font-weight-semibold;
+    margin-bottom: map.get($spacing-text, md);
+}
+
+p {
+    margin-bottom: map.get($spacing-text, md);
+}
+
+small, .text-small {
+    font-size: $font-size-small;
+}
+
+code {
+    font-family: $font-family-code;
+    font-size: $font-size-code;
+    background-color: $color-gray-100;
+    padding: 2px 4px;
+    border-radius: $border-radius-sm;
+}

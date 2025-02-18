@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use './variables' as *;
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -6,9 +9,9 @@
 }
 
 body {
-    font-family: $base-font-family;
-    font-size: $base-font-size;
-    line-height: $base-line-height;
+    font-family: $font-family-primary;
+    font-size: $font-size-body;
+    line-height: 1.5;
     background-color: $light-gray;
     color: $dark-navy;
 }
@@ -19,7 +22,7 @@ a {
     transition: color $transition-base;
 
     &:hover {
-        color: darken($primary-blue, 10%);
+        color: color.adjust($primary-blue, $lightness: -10%);
     }
 }
 
