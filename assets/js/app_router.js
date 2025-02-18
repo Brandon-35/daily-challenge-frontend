@@ -13,6 +13,7 @@ export function configure_router(app) {
 	router.add_route('/challenges', app.render_challenges.bind(app));
 	router.add_route('/logs', app.render_logs.bind(app));
 	router.add_route('/profile', app.render_profile.bind(app));
+	router.add_route('/style-guide', app.render_style_guide.bind(app));
 
 	return router;
 }

@@ -149,6 +149,19 @@ class challenge_tracker_app extends Base {
 		await login.mount(app_container);
 	}
 
+	async render_style_guide() {
+		const app_container = document.getElementById('app');
+		app_container.innerHTML = '';
+
+		// Import and render the style guide component
+		const StyleGuideComponent = (await import('./components/style_guide_component.js')).default; // Assuming default export
+		const styleGuide = new StyleGuideComponent({
+			store: this.store,
+			parent: app_container
+		});
+		await styleGuide.mount();
+	}
+
 	// Initialize application
 	async init() {
 		// Register store mutations

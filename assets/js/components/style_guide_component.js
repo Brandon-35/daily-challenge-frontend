@@ -99,6 +99,49 @@ class StyleGuideComponent extends PageComponent {
         ], 3);
     }
 
+    _create_forms_section() {
+        return this.create_element('div', {
+            class_list: ['form-section'],
+            children: [
+                this.create_element('h2', { text_content: 'Forms' }),
+                this.create_element('div', {
+                    class_list: ['form-group'],
+                    children: [
+                        this.create_element('label', { text_content: 'Input Field' }),
+                        this.create_element('input', { placeholder: 'Type something...' }),
+                    ]
+                }),
+                this.create_element('div', {
+                    class_list: ['form-group'],
+                    children: [
+                        this.create_element('label', { text_content: 'Textarea' }),
+                        this.create_element('textarea', { placeholder: 'Type your message...' }),
+                    ]
+                }),
+                this.create_element('div', {
+                    class_list: ['form-group'],
+                    children: [
+                        this.create_element('label', { text_content: 'Select Box' }),
+                        this.create_element('select', {
+                            children: [
+                                this.create_element('option', { text_content: 'Option 1' }),
+                                this.create_element('option', { text_content: 'Option 2' }),
+                                this.create_element('option', { text_content: 'Option 3' }),
+                            ]
+                        }),
+                    ]
+                }),
+                this.create_element('div', {
+                    class_list: ['form-actions'],
+                    children: [
+                        this.create_element('button', { text_content: 'Submit', class_list: ['btn', 'btn-primary'] }),
+                        this.create_element('button', { text_content: 'Reset', class_list: ['btn', 'btn-secondary'] }),
+                    ]
+                }),
+            ]
+        });
+    }
+
     async render() {
         await super.render();
 
@@ -126,6 +169,12 @@ class StyleGuideComponent extends PageComponent {
         const cards_section = this.add_section({
             title: 'Cards',
             content: this._create_cards_section()
+        });
+
+        // Forms
+        const forms_section = this.add_section({
+            title: 'Forms',
+            content: this._create_forms_section()
         });
 
         return this;
