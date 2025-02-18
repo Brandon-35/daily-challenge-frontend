@@ -1,12 +1,13 @@
 import Base from './core/base.js';
-import Router from './core/router.js';
 import Store from './core/store.js';
 import NavComponent from './components/nav_component.js';
 import DashboardComponent from './components/dashboard_component.js';
+import LoginComponent from './components/login_component.js';
 import ChallengesComponent from './components/challenges_component.js';
 import LogsComponent from './components/logs_component.js';
 import ProfileComponent from './components/profile_component.js';
-import LoginComponent from './components/login_component.js';
+
+import { configure_router } from './app_router.js'; // Import router configuration
 
 class challenge_tracker_app extends Base {
 	constructor() {
@@ -34,17 +35,7 @@ class challenge_tracker_app extends Base {
 		});
 
 		// Initialize router
-		this.router = new Router({
-			mode: 'history',
-			root: '/'
-		});
-
-		// Add routes
-		this.router.add_route('/', this.render_dashboard.bind(this));
-		this.router.add_route('/login', this.render_login.bind(this));
-		this.router.add_route('/challenges', this.render_challenges.bind(this));
-		this.router.add_route('/logs', this.render_logs.bind(this));
-		this.router.add_route('/profile', this.render_profile.bind(this));
+		this.router = configure_router(this); // Use the new router configuration
 
 		// Register global application hooks
 		this.register_global_hooks();
@@ -52,7 +43,6 @@ class challenge_tracker_app extends Base {
 		// Initialize application
 		this.init();
 	}
-
 
 	// Register global application hooks
 	register_global_hooks() {
@@ -158,8 +148,6 @@ class challenge_tracker_app extends Base {
 		});
 		await login.mount(app_container);
 	}
-
-
 
 	// Initialize application
 	async init() {
