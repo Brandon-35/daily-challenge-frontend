@@ -2,6 +2,12 @@ import Base from './core/base.js';
 import Router from './core/router.js';
 import Store from './core/store.js';
 import NavComponent from './components/nav_component.js';
+import DashboardComponent from './components/dashboard_component.js';
+import ChallengesComponent from './components/challenges_component.js';
+import LogsComponent from './components/logs_component.js';
+import ProfileComponent from './components/profile_component.js';
+import LoginComponent from './components/login_component.js';
+
 class challenge_tracker_app extends Base {
 	constructor() {
 		super();
@@ -106,8 +112,7 @@ class challenge_tracker_app extends Base {
 		app_container.innerHTML = '';
 
 		// Render nav first
-		const nav_component = await import('./components/nav_component.js');
-		const nav = new nav_component.default({
+		const nav = new NavComponent({
 			store: this.store,
 			parent: app_container
 		});
@@ -122,32 +127,31 @@ class challenge_tracker_app extends Base {
 	}
 
 	async render_dashboard(router) {
-		const dashboard_component = await import('./components/dashboard_component.js');
-		await this.render_protected_page(dashboard_component.default);
+		// const dashboard_component = await import('./components/dashboard_component.js');
+		await this.render_protected_page(DashboardComponent);
 	}
 
 	async render_challenges(router) {
-		const challenges_component = await import('./components/challenges_component.js');
-		await this.render_protected_page(challenges_component.default);
+		// const challenges_component = await import('./components/challenges_component.js');
+		await this.render_protected_page(ChallengesComponent);
 	}
 
 	async render_logs(router) {
-		const logs_component = await import('./components/logs_component.js');
-		await this.render_protected_page(logs_component.default);
+		// const logs_component = await import('./components/logs_component.js');
+		await this.render_protected_page(LogsComponent);
 	}
 
 	async render_profile(router) {
-		const profile_component = await import('./components/profile_component.js');
-		await this.render_protected_page(profile_component.default);
+		// const profile_component = await import('./components/profile_component.js');
+		await this.render_protected_page(ProfileComponent);
 	}
-
 
 	async render_login() {
 		const app_container = document.getElementById('app');
 		app_container.innerHTML = '';
 
-		const login_component = await import('./components/login_component.js');
-		const login = new login_component.default({
+		// const login_component = await import('./components/login_component.js');
+		const login = new LoginComponent({
 			store: this.store,
 			router: this.router,
 			parent: app_container

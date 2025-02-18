@@ -1,3 +1,4 @@
+import Component from '../core/component.js';
 class PageComponent extends Component {
     constructor(options = {}) {
         super({
@@ -151,3 +152,5 @@ class PageComponent extends Component {
         });
     }
 } 
+
+export default PageComponent;

@@ -43,7 +43,7 @@ class NavComponent extends Component {
             class_list: ['nav-logo'],
             children: [
                 this.create_element('h1', {
-                    text_content: 'UXPlot',
+                    text_content: 'YourProjectName',
                     class_list: ['logo-text']
                 })
             ]
